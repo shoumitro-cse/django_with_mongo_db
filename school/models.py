@@ -1,7 +1,5 @@
 from django.db import models
-from django.db.models import Q
 from django.db.models import Avg
-from rest_framework import serializers
 
 
 class Teacher(models.Model):
@@ -13,7 +11,7 @@ class Teacher(models.Model):
     class Meta:
         ordering = ('-id',)
         verbose_name = "Teacher"
-        verbose_name_plural = "Teacher"
+        verbose_name_plural = "Teachers"
 
 
 class SchoolClass(models.Model):
@@ -74,8 +72,6 @@ class Mark(models.Model):
     grade_point = models.FloatField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        # self.validate_grade(self.grade)
-        print(self.mark)
         if self.mark >= 80:
             self.grade = 'A+'
             self.grade_point = 5.0
@@ -103,19 +99,8 @@ class Mark(models.Model):
     def gpa(self):
         return self.student.marks.aggregate(avg_grade_point=Avg('grade_point'))['avg_grade_point']
 
-    # def validate_grade(self, value):
-    #     valid_choices = [choice[0] for choice in Mark.GRADE_CHOICES]
-    #     value = value.strip()  # Strip any whitespace from the value
-    #     if value not in valid_choices:
-    #         raise serializers.ValidationError(f'{value} is not a valid grade. Valid grades are {valid_choices}.')
-    #     return value
-
     class Meta:
         ordering = ('-id',)
         verbose_name = "Mark"
-        verbose_name_plural = "Mark"
+        verbose_name_plural = "Marks"
 
-
-
-# mark_list = Mark.objects.filter(class_name_id=3, mark__gt=33).select_related().prefetch_related()
-# subject_list = Subject.objects.filter(class_name_id=3, marks__mark__gt=33).annotate()
