@@ -122,7 +122,7 @@ var series = chart.series.push(am5percent.PieSeries.new(root, {
 
 var data = [
     {% for r in result %}
-        {value: {{ r.total_student }} , category: '{{ r.percentage }}%'},
+        {value: {{ r.grade_total_student }} , category: '{{ r.percentage }}%'},
     {% endfor %}
 ];
 
@@ -176,7 +176,7 @@ series.appear(1000, 100);
                         {% for d in result %}
                             <tr>
                                 <td>{{ d.grade }}</td>
-                                <td>{{ d.total_student }}</td>
+                                <td>{{ d.grade_total_student }}</td>
                                 <td>{{ d.percentage }}%</td>
                             </tr>
                         {% endfor %}
