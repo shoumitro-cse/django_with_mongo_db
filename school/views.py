@@ -1,9 +1,14 @@
 from django.views import View
 from django.db.models import Sum, Count
-from .models import Student
+from rest_framework.permissions import IsAuthenticated
+from .models import Student, Teacher
 from django.shortcuts import render
 from school.models import SchoolClass, Subject, Mark
 from django.db.models import Q, F
+from rest_framework import generics, viewsets
+from rest_framework.response import Response
+from .permissions import IsTeacher
+from .serializers import MarkSerializer, SubjectSerializer, SchoolClassSerializer, StudentSerializer, TeacherSerializer
 
 
 class DashboardNoSqlView(View):
@@ -118,3 +123,33 @@ class DashboardSqlView(View):
             # print(context["result"])
             # print('total_student: ', context["total_student"])
             return render(request, 'chartapp/pie.html', context)
+
+
+class MarkViewSet(viewsets.ModelViewSet):
+    serializer_class = MarkSerializer
+    permission_classes = [IsTeacher]
+    queryset = Mark.objects.all()
+
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    serializer_class = SubjectSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Subject.objects.all()
+
+
+class ClassViewSet(viewsets.ModelViewSet):
+    serializer_class = SchoolClassSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = SchoolClass.objects.all()
+
+
+class StudentViewSet(viewsets.ModelViewSet):
+    serializer_class = StudentSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Student.objects.all()
+
+
+class TeacherViewSet(viewsets.ModelViewSet):
+    serializer_class = TeacherSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Teacher.objects.all()

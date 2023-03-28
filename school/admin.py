@@ -18,9 +18,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_filter = ('class_name',)
 
 
-@admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+admin.site.register(Teacher)
 
 
 @admin.register(Mark)

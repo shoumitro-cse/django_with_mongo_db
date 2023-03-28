@@ -1,12 +1,15 @@
 from django.db import models
 from django.db.models import Avg
+from account.models import User
 
 
 class Teacher(models.Model):
-    name = models.CharField(max_length=255)
+    user = models.OneToOneField(User, related_name='teacher', on_delete=models.CASCADE)
+    address = models.TextField(max_length=255)
+    phone = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return self.user.name
 
     class Meta:
         ordering = ('-id',)

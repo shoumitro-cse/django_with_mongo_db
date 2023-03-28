@@ -29,7 +29,6 @@ class TeacherSerializer(serializers.ModelSerializer):
 
 
 class MarkSerializer(serializers.ModelSerializer):
-    grade = serializers.ChoiceField(choices=Mark.GRADE_CHOICES)
 
     class Meta:
         model = Mark
