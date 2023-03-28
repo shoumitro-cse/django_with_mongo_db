@@ -11,7 +11,7 @@ router.register('teachers', TeacherViewSet)
 router.register('marks', MarkViewSet)
 
 urlpatterns = [
-        path('', include(router.urls)),
+        path('api', include(router.urls)),
 
         path('dashboard/', DashboardNoSqlView.as_view(), name='dashboard_url'),
         path('dashboard-sql/', DashboardSqlView.as_view(), name='dashboard_sql_url'),

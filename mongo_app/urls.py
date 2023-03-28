@@ -14,7 +14,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('account.urls')),
-    path('api/', include('school.urls')),
+    path('', include('school.urls')),
 
     # Token authentication for API
     path('api/token/', TokenObtainPairView.as_view(),
